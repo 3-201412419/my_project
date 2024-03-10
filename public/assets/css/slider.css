@@ -1,0 +1,10 @@
+.slider {
+    width: 100%;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.slider img {
+    width: 100%;
+    display: block; /* 이미지가 슬라이더 영역에 맞춰 표시되도록 설정 */
+}
