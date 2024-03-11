@@ -2,12 +2,12 @@
 
 use CodeIgniter\Controller;
 
-class MyPage extends Controller
+class HomePage extends Controller
 {
     public function index()
     {   
        echo view('header');
-       echo view('my_view');
+       echo view('homepage');
        echo view('footer');
     }
 }

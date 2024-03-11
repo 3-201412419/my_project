@@ -1,13 +1,20 @@
 body {
     background-color: #f2f2f2;
     font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
 }
 
-.container {
+.container, .slider {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
+    text-align: center; /* 중앙 정렬 */
 }
+
+.body-content {
+    min-height: calc(100vh - 120px); /* Adjust 120px based on actual height of header and footer */
+  }
 
 .button {
     display: inline-block;
@@ -16,7 +23,20 @@ body {
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    margin: 10px; /* 버튼 간격 */
 }
+
+.emoji {
+    font-size: 2rem;
+    text-align: center;
+    display: block;
+}
+
+.members-directory {
+    text-align: center;
+    margin-top: 20px;
+}
+
 
 /* 화면 크기가 768px 미만일 때 적용될 스타일 */
 @media (max-width: 768px) {
