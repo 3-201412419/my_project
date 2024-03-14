@@ -1,0 +1,71 @@
+         /* Add your custom CSS styles here */
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .icon img {
+            width: 50px;
+            height: 50px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .membership-directory {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+            height: 100px;
+            margin: 50px auto 0;
+            /* 화면의 상단에서부터의 간격 */
+            background-color: #0A0A0A;
+            /* 배경색 */
+            border: 1px solid #dcdcdc;
+            /* 테두리 */
+            border-radius: 8px;
+            /* 테두리 둥글기 */
+        }
+
+        .membership-directory h2 {
+            margin: 0;
+            /* 기본 마진 제거 */
+            color: #ddd;
+            /* 텍스트 색상 */
+        }
+
+        td,
+        th {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        @media (max-width: 600px) {
+            .membership-directory {
+                width: 90%;
+                /* 모바일 화면에서는 너비를 %로 조정 */
+                height: 80px;
+                /* 모바일 화면에서의 높이 조정 */
+                margin-top: 20px;
+                /* 상단 간격 조정 */
+            }
+        }

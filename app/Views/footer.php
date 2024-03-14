@@ -1,24 +1,40 @@
-<div class="footer">
-    <div class="container">
-        <div class="footer-section">
-            <h4>About Us</h4>
-            <p>Our company information, history, mission.</p>
-        </div>
-        <div class="footer-section">
-            <h4>Contact Information</h4>
-            <p>Email: contact@example.com</p>
-            <p>Phone: +123 456 7890</p>
-        </div>
-        <div class="footer-section">
-            <h4>Follow Us</h4>
-            <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
-        </div>
-        <div class="footer-section">
-            <h4>Quick Links</h4>
-            <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#">FAQs</a>
-        </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"> <!-- FontAwesome 아이콘을 위한 링크 -->
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0; /* 왼쪽 정렬을 위해 추가 */
+            width: 100%;
+            background-color: #f8f9fa;
+            text-align: center;
+            font-size: 14px;
+            padding: 10px 0;
+            display: flex; /* Flexbox를 사용하여 내용을 가로로 배치 */
+            justify-content: center; /* 중앙 정렬 */
+        }
+
+        .footer a {
+            color: grey !important;
+            margin: 0 10px;
+            display: inline-block; /* 링크가 가로로 나열되도록 설정 */
+            text-decoration: none;
+        }
+
+        .footer i {
+            display: inline-block; /* 아이콘과 텍스트가 같은 줄에 나타나도록 설정 */
+            margin-right: 5px; /* 아이콘과 텍스트 사이 간격 설정 */
+        }
+    </style>
+</head>
+<body>
+    <div class="footer">
+        <a href="mypage.php"><i class="fas fa-user"></i> 마이페이지</a>
+        <a href="latest.php"><i class="fas fa-clock"></i> 최신글</a>
+        <a href="members.php"><i class="fas fa-book"></i> 회원수첩</a>
+        <a href="javascript:location.reload();"><i class="fas fa-sync-alt"></i> 새로고침</a>
     </div>
-    <div class="footer-bottom">
-        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
-    </div>
-</div>
+</body>
+</html>
