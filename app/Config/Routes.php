@@ -11,3 +11,4 @@ $routes->get('/memberdetail', 'MemberDetail::index');
 $routes->get('/home', 'Home::index');
 $routes->get('/user', 'UserController::index');
 $routes->get('/postdetail/(:num)', 'PostDetail::index/$1');
+$routes->get('/posts', 'Posts::index');

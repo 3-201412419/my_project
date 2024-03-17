@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
 }
 
 h1 {
@@ -97,9 +98,9 @@ td, th {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 30px;
     padding: 15px;
     max-width: 800px;
+    margin: 30px auto; /* 상단 마진을 포함한 마진 설정 */
 }
 
 .latest-posts ul {
