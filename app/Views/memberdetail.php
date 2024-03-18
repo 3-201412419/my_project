@@ -39,15 +39,9 @@
     </div>
 </div>
 
-<script>
-document.getElementById('saveMemo').addEventListener('click', function() {
-    var memoContent = document.getElementById('memberMemo').value;
-    console.log('저장된 메모:', memoContent);
-    // 여기에서 추가 처리를 수행할 수 있습니다. 예: 서버로 전송, 로컬 스토리지 저장 등
-});
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/my_project/public/js/memberdetail.js"></script>
 </body>
 </html>

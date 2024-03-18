@@ -14,7 +14,7 @@
             <span>작성일: <?= esc($post['created_at']); ?></span>
         </div>
         <div class="post-content">
-            <?= esc($post['content']); ?>
+            <?= $post['content']; ?> <!-- esc() 함수 사용하지 않음 -->
         </div>
         <div class="post-footer">
             <a href="/my_project/posts">목록으로 돌아가기</a>

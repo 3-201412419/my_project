@@ -16,6 +16,57 @@
     text-align: center;
 }
 
-.member-info h3 {
+.member-info h5 {
     margin-top: 0;
+}
+
+/* 갤럭시 폴드 및 태블릿 화면 스타일 */
+@media (min-width: 768px) {
+    .member-card {
+        /* 카드의 크기를 큼직하게 조정 */
+        width: 100%;
+    }
+
+    .member-info h5 {
+        font-size: 1.5rem; /* 제목의 글자 크기를 키움 */
+    }
+
+    .card-text {
+        font-size: 1.2rem; /* 내용의 글자 크기를 조정 */
+    }
+
+    .btn {
+        padding: 0.75rem 1.25rem; /* 버튼의 크기를 조정 */
+        font-size: 1.2rem; /* 버튼의 글자 크기를 키움 */
+    }
+}
+
+/* 모바일 화면 (특히 접혔을 때) 스타일 */
+@media (max-width: 767px) {
+    .member-card {
+        /* 카드가 너무 크지 않도록 조정 */
+        margin-bottom: 1rem;
+    }
+
+    .member-info h5 {
+        font-size: 1.25rem; /* 모바일 화면에 맞춰 제목 글자 크기 조정 */
+    }
+
+    .card-text {
+        font-size: 1rem; /* 내용 글자 크기를 작게 조정 */
+    }
+
+    .btn {
+        padding: 0.5rem 1rem; /* 버튼의 크기를 모바일에 맞추어 조정 */
+        font-size: 1rem; /* 버튼의 글자 크기를 줄임 */
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 70%;
+        display: block;
+    }
 }
