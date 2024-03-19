@@ -7,10 +7,19 @@ use App\Models\MemberDetailModel_m; // 수정된 모델 이름 사용
 
 class MemberDetail extends Controller
 {
-    public function index()
-    {   
+    public function index($id = null)
+    {
+        $model = new MemberDetailModel_m();
+    
+        $data = [];
+        if ($id !== null) {
+            // DB에서 회원 정보를 가져옵니다.
+            $data['member'] = $model->find($id);
+        }
+
+        // 뷰에 데이터를 전달합니다.
         echo view('header');
-        echo view('memberdetail');
+        echo view('memberdetail', $data);
         echo view('footer');
     }
 

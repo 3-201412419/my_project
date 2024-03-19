@@ -1,24 +1,31 @@
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('saveMemo').addEventListener('click', function () {
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('saveMemo').addEventListener('click', function() {
+        var memberId = document.getElementById('memberDetail').getAttribute('data-member-id');
         var memoContent = document.getElementById('memberMemo').value;
-        // AJAX를 사용하여 서버에 메모 내용을 전송하는 코드 작성
+        
         fetch('/my_project/MemberDetail/saveMemo', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                // CSRF 토큰이 필요하다면 여기에 추가
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
             },
-            body: 'memo=' + encodeURIComponent(memoContent) + '&member_id=' + encodeURIComponent(memberId)
+            body: JSON.stringify({
+                member_id: memberId,
+                memo: memoContent
+            })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
-            if(data.status === 'success') {
+            if (data.status === 'success') {
                 alert(data.message);
-                // 성공 처리 로직 (예: 입력 필드 초기화)
                 document.getElementById('memberMemo').value = '';
             } else {
-                // 실패 처리 로직
-                alert('메모 저장 실패');
+                alert(data.message);
             }
         })
         .catch(error => console.error('Error:', error));
