@@ -123,6 +123,8 @@ nb-configuration.xml
 .vscode/
 
 /results/
+/public/img/upload/*
 /phpunit*.xml
 /.phpunit.*.cache
 
+img/upload/1710999695_e9a4a059b17a693c6731.jpg

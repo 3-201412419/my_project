@@ -50,11 +50,11 @@ class Posts extends Controller
             $file = $this->request->getFile('image');
             if ($file && $file->isValid() && !$file->hasMoved()) {
                 $newName = $file->getRandomName(); // 파일명을 무작위로 생성
-                // 파일을 public/img/upload 폴더로 이동
-                $file->move(FCPATH . 'public/img/upload', $newName); 
+                // 파일을 img/upload 폴더로 이동
+                $file->move(FCPATH . 'img/upload', $newName);
                 
                 // 업로드된 이미지의 URL을 생성
-                $imageUrl = base_url('public/img/upload/' . $newName);
+                $imageUrl = base_url('img/upload/' . $newName);
                 
                 // Quill 에디터에서 요구하는 형식으로 응답을 반환
                 return $this->response->setJSON(['success' => true, 'url' => $imageUrl]);

@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.login-card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 20px auto;
+}
+
+@media (min-width: 768px) {
+    .login-card {
+        max-width: 500px; /* 데스크탑에서는 폭을 제한 */
+    }
+}
+
+.btn-primary, .btn-secondary {
+    width: 48%; /* 버튼 너비 조정 */
+    margin: 10px 0; /* 버튼 상하 마진 */
+}
+
+/* 추가 스타일 */
+.container {
+    padding: 15px;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 320px) {
+    .button, .tab-bar {
+        min-height: 48px;
+        font-size: 16px;
+    }
+
+    body, p, h1, h2, h3 {
+        font-size: 16px; /* 모바일 기기에서 적당한 기본 폰트 사이즈로 조정 */
+    }
+}
+
+@media (min-width: 321px) and (max-width: 767px) {
+    .container {
+        padding: 0 20px; /* 펼쳤을 때 약간 더 많은 패딩 적용 */
+    }
+
+    .image {
+        margin-bottom: 20px; /* 펼쳤을 때 이미지와 텍스트 사이 간격 조정 */
+    }
+
+    .button, .tab-bar {
+        min-height: 60px; /* 펼쳤을 때 더 큰 터치 영역 제공 */
+        font-size: 18px; /* 펼쳤을 때 더 큰 폰트 사이즈 적용 */
+    }
+
+    body, p, h1, h2, h3 {
+        font-size: 18px; /* 펼쳤을 때 보다 큰 기본 폰트 사이즈로 조정 */
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 800px;
+        margin: auto;
+    }
+}
