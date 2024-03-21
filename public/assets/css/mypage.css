@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-info, .user-actions {
+    margin-bottom: 30px;
+}
+
+.user-info h3, .user-actions h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.user-info p, .user-actions ul {
+    line-height: 1.6;
+}
+
+.user-actions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-actions ul li {
+    padding: 10px 0;
+}
+
+.user-actions ul li a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

@@ -28,21 +28,18 @@ class Posts extends Controller
         echo view ('footer');
     }
 
-    public function store()
-    {
+    public function store() {
         $model = new Posts_m();
-    
+        
+        // 글 제목과 내용(이미지 URL 포함)을 요청에서 가져옵니다.
         $data = [
             'title' => $this->request->getPost('title'),
-            'content' => $this->request->getPost('content'),
-            // 필요한 나머지 필드들...
+            'content' => $this->request->getPost('content'), // 이미지 URL이 포함된 HTML
         ];
-    
+        
         if ($model->save($data)) {
-            // 데이터베이스에 성공적으로 저장된 경우
-            return redirect()->to('/posts'); // 게시글 목록 페이지로 리다이렉션
+            return redirect()->to('/posts'); // 글 목록 페이지로 리다이렉션
         } else {
-            // 저장 실패 처리
             return redirect()->back()->withInput()->with('error', '게시글 저장 실패');
         }
     }
@@ -52,10 +49,15 @@ class Posts extends Controller
         if ($this->request->getMethod() === 'post') {
             $file = $this->request->getFile('image');
             if ($file && $file->isValid() && !$file->hasMoved()) {
-                $newName = $file->getRandomName();
-                $file->move(FCPATH . 'img/upload', $newName);
-                // 업로드 성공 시, Quill에서 요구하는 형식으로 응답
-                return $this->response->setJSON(['success' => true, 'url' => base_url('img/upload/' . $newName)]);
+                $newName = $file->getRandomName(); // 파일명을 무작위로 생성
+                // 파일을 public/img/upload 폴더로 이동
+                $file->move(FCPATH . 'public/img/upload', $newName); 
+                
+                // 업로드된 이미지의 URL을 생성
+                $imageUrl = base_url('public/img/upload/' . $newName);
+                
+                // Quill 에디터에서 요구하는 형식으로 응답을 반환
+                return $this->response->setJSON(['success' => true, 'url' => $imageUrl]);
             }
         }
         // 업로드 실패 시 응답

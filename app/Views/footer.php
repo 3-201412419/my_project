@@ -31,7 +31,7 @@
 </head>
 <body>
     <div class="footer">
-        <a href="mypage.php"><i class="fas fa-user"></i> 마이페이지</a>
+        <a href="/my_project/mypage"><i class="fas fa-user"></i> 마이페이지</a>
         <a href="/my_project/posts"><i class="fas fa-clock"></i> 게시판</a>
         <a href="/my_project/allmember"><i class="fas fa-book"></i> 회원수첩</a>
         <a href="javascript:location.reload();"><i class="fas fa-sync-alt"></i> 새로고침</a>
