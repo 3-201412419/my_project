@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.status === 'success') {
                 alert(data.message);
                 document.getElementById('memberMemo').value = '';
+                location.reload();
             } else {
                 alert(data.message);
             }

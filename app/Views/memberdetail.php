@@ -28,7 +28,7 @@
                         id="memberMemo"
                         class="form-control mb-2"
                         rows="3"
-                        placeholder="메모를 여기에 작성하세요..."></textarea>
+                        placeholder="메모를 여기에 작성하세요..."><?= esc($member['personal_memo'] ?? ''); ?></textarea>
                     <button id="saveMemo" class="btn btn-primary">저장</button>
                 </div>
                 <div class="col-12">

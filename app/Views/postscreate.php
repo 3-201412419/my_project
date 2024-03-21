@@ -17,17 +17,18 @@
                 <h2>글 작성하기</h2>
                 <form action="/my_project/posts/store" method="post" class="post-form">
                     <div class="form-group">
-                        <label for="title">제목:</label>
                         <input
                             type="text"
                             id="title"
                             name="title"
                             required="required"
-                            class="form-control">
+                            class="form-control"
+                            placeholder="제목을 입력하세요...">
+
                     </div>
 
                     <div class="form-group">
-                        <label for="content">내용:</label>
+
                         <!-- Quill Editor의 컨테이너 -->
                         <div id="editor-container"></div>
                         <!-- 실제로 서버에 전송될 내용을 담을 숨겨진 필드 -->
@@ -44,6 +45,7 @@
         <script>
             var quill = new Quill('#editor-container', {
                 theme: 'snow', // 테마 설정
+                placeholder: '여기에 내용을 입력하세요...', // 플레이스홀더 텍스트 설정
                 modules: {
                     toolbar: [
                         [

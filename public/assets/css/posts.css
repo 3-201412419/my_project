@@ -37,6 +37,7 @@ header nav a {
     border-radius: 4px;
 }
 
+/* 검색 버튼 스타일 */
 .search-form button {
     padding: 10px 15px;
     background-color: #007bff;
@@ -46,8 +47,19 @@ header nav a {
     cursor: pointer;
 }
 
+/* 검색 버튼 호버 효과 */
 .search-form button:hover {
     background-color: #0056b3;
+}
+
+/* "작성" 버튼 스타일에 대한 구체적 선택자 사용 */
+.search-form .write-button {
+    background-color: #28a745; /* 녹색 계열의 배경색으로 변경 */
+}
+
+/* "작성" 버튼 호버 효과에 대한 구체적 선택자 사용 */
+.search-form .write-button:hover {
+    background-color: #218838; /* 호버 시 더 진한 녹색으로 변경 */
 }
 
 .latest-posts {

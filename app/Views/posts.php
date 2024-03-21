@@ -12,6 +12,7 @@
             <form action="/my_project/posts" method="get">
                 <input type="text" name="query" placeholder="검색어 입력..." value="<?= esc($query) ?>">
                 <button type="submit">검색</button>
+               <a href = "/my_project/posts/create"><button type="button" class = "write-button">작성</button></a>
             </form>
         </div>
         <div class="latest-posts">
