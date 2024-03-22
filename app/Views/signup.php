@@ -39,7 +39,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="captcha">자동등록방지 코드:</label>
-                                <img src="<?= esc($captchaImage) ?>" alt="CAPTCHA"> <!-- CAPTCHA 이미지 표시 -->
+                                <img src="<?= esc($captchaImageUrl) ?>" alt="CAPTCHA"> <!-- CAPTCHA 이미지 표시 -->
                                 <input type="text" name="captcha" id="captcha" class="form-control" placeholder="위의 문자를 입력하세요" required>
                             </div>
                             <!-- 자동등록방지 코드 입력 필드 및 이미지 추가 예정 -->

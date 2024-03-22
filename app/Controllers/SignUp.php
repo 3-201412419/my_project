@@ -8,16 +8,17 @@ class Signup extends Controller
     public function index()
     {
         helper(['form', 'url']);
+    
+        // CAPTCHA 이미지 URL 생성
+        $captchaImageUrl = $this->createCaptcha();
         
-          // 자동등록방지(CAPTCHA) 문자열 생성 로직
-          $captchaString = $this->createCaptcha();
-        
-          // 뷰로 전달할 데이터 배열에 CAPTCHA 문자열을 추가
-          $data['captchaString'] = $captchaString;
-  
-
+        // 뷰로 전달할 데이터 배열
+        $data = [
+            'captchaImageUrl' => $captchaImageUrl,
+        ];
+    
         echo view('header');
-        echo view('signup', $data);
+        echo view('signup', $data); // CAPTCHA 이미지 URL을 포함한 데이터 배열 전달
         echo view('footer');
     }
 
@@ -25,30 +26,40 @@ class Signup extends Controller
     {
         helper('text');
         $captchaString = random_string('alnum', 8); // 8자리 랜덤 문자열 생성
-    
+        
         // CAPTCHA 이미지 생성 로직
-        $image = imagecreatetruecolor(120, 30); // 이미지 사이즈 설정
-        $background = imagecolorallocate($image, 255, 255, 255); // 배경색 설정
-        $textColor = imagecolorallocate($image, 0, 0, 0); // 텍스트 색상 설정
+        $image = imagecreatetruecolor(120, 30);
+        $background = imagecolorallocate($image, 255, 255, 255);
+        $textColor = imagecolorallocate($image, 0, 0, 0);
+        imagefilledrectangle($image, 0, 0, 120, 30, $background);
+        $fontPath = FCPATH . 'public/font/stardust.ttf';
+        imagettftext($image, 20, 0, 10, 25, $textColor, $fontPath, $captchaString);
+        
+        // 이미지 파일 저장 경로
+        $captchaDir = FCPATH . 'img/captcha/';
+        
+        // 이전 CAPTCHA 이미지 파일 삭제
+        $files = glob($captchaDir . '*');
+        foreach ($files as $file) {
+            if (is_file($file)) {
+                unlink($file);
+            }
+        }
     
-        imagefilledrectangle($image, 0, 0, 120, 30, $background); // 배경 채우기
-        imagettftext($image, 20, 0, 10, 25, $textColor, 'path/to/font.ttf', $captchaString); // 텍스트 쓰기
-    
-        // 이미지 파일 저장
-        $captchaDir = WRITEPATH . 'captcha/';
+        // 새 CAPTCHA 이미지 파일 저장
         if (!is_dir($captchaDir)) {
             mkdir($captchaDir, 0777, true);
         }
         $fileName = md5($captchaString . time()) . '.png';
         $filePath = $captchaDir . $fileName;
-        imagepng($image, $filePath); // PNG 형식으로 저장
-        imagedestroy($image); // 이미지 리소스 해제
+        imagepng($image, $filePath);
+        imagedestroy($image);
     
         // 세션에 CAPTCHA 정보 저장
         session()->set('captcha', $captchaString);
     
         // CAPTCHA 이미지 URL 반환
-        $imageUrl = base_url('writable/captcha/' . $fileName);
+        $imageUrl = base_url('img/captcha/' . $fileName);
         return $imageUrl;
     }
 
