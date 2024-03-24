@@ -19,7 +19,7 @@
                         <?php if(session()->getFlashdata('msg')):?>
                             <div class="alert alert-danger"><?= session()->getFlashdata('msg') ?></div>
                         <?php endif;?>
-                        <form action="/login/authenticate" method="post">
+                        <form action="/my_project/login/authenticate" method="post">
                             <div class="form-group">
                                 <label for="username">아이디:</label>
                                 <input type="text" name="username" id="username" required class="form-control">

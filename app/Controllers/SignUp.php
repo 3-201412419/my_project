@@ -27,13 +27,22 @@ class Signup extends Controller
         helper('text');
         $captchaString = random_string('alnum', 8); // 8자리 랜덤 문자열 생성
         
-        // CAPTCHA 이미지 생성 로직
-        $image = imagecreatetruecolor(120, 30);
+        $imageWidth = 250; // 너비 설정
+        $imageHeight = 60; // 높이 설정
+        $image = imagecreatetruecolor($imageWidth, $imageHeight);
         $background = imagecolorallocate($image, 255, 255, 255);
         $textColor = imagecolorallocate($image, 0, 0, 0);
-        imagefilledrectangle($image, 0, 0, 120, 30, $background);
+        imagefilledrectangle($image, 0, 0, $imageWidth, $imageHeight, $background);
         $fontPath = FCPATH . 'public/font/stardust.ttf';
-        imagettftext($image, 20, 0, 10, 25, $textColor, $fontPath, $captchaString);
+        
+        $fontSize = 24; // 글꼴 크기 조정
+        $textBox = imagettfbbox($fontSize, 0, $fontPath, $captchaString);
+        $textWidth = $textBox[2] - $textBox[0];
+        $textHeight = $textBox[1] - $textBox[7]; // y 좌표의 정확한 높이 계산
+        $x = ($imageWidth - $textWidth) / 2;
+        $y = ($imageHeight / 2) + ($textHeight / 2); // y 좌표를 수정하여 텍스트를 중앙으로
+        
+        imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $captchaString);
         
         // 이미지 파일 저장 경로
         $captchaDir = FCPATH . 'img/captcha/';
@@ -67,37 +76,44 @@ class Signup extends Controller
     {
         helper(['form', 'url']);
         $validation =  \Config\Services::validation();
-
+    
+        // 유효성 검증 규칙 설정
         $validation->setRules([
-            'username' => 'required|min_length[5]|max_length[12]',
+            'user_id' => 'required|min_length[5]|max_length[12]|is_unique[users.user_id]',
             'password' => 'required|min_length[8]',
             'confirmPassword' => 'matches[password]',
             'name' => 'required',
-            // 자동등록방지 코드 검증 로직 추가 (예제에선 생략)
+            // 자동등록방지 코드 검증 로직은 예제에서 생략
         ]);
-
+    
+        // 사용자가 입력한 CAPTCHA 값을 가져옵니다.
         $userInputCaptcha = $this->request->getPost('captcha');
+        // 세션에 저장된 CAPTCHA 값을 가져옵니다.
         $storedCaptcha = session()->get('captcha');
     
+        // 입력한 CAPTCHA 값과 세션에 저장된 값이 다를 경우
         if ($userInputCaptcha !== $storedCaptcha) {
-            // CAPTCHA 불일치
+            // 사용자에게 CAPTCHA 불일치 메시지를 반환하고 이전 페이지로 리다이렉션합니다.
             return redirect()->back()->withInput()->with('captchaError', 'CAPTCHA가 일치하지 않습니다.');
         }
     
-
-        if(!$validation->withRequest($this->request)->run())
-        {
+        // 유효성 검증 실패 시, 에러 메시지와 함께 이전 페이지로 리다이렉션합니다.
+        if(!$validation->withRequest($this->request)->run()) {
+            // 유효성 검증 실패 시 에러 메시지를 담아 리다이렉션
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
-
+    
+        // UserModel을 사용하여 사용자 데이터를 데이터베이스에 저장합니다.
         $userModel = new UserModel();
         $data = [
-            'username' => $this->request->getPost('username'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'user_id' => $this->request->getPost('user_id'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT), // 비밀번호 암호화
             'name' => $this->request->getPost('name'),
-            // 추가 데이터 필드...
+            // 필요한 추가 데이터 필드...
         ];
         $userModel->save($data);
+    
+        // 사용자 등록 후 로그인 페이지로 리다이렉션합니다.
         return redirect()->to('/login');
     }
 }

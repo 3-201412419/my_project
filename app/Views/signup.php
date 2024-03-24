@@ -20,27 +20,27 @@
                         <?php if(session()->getFlashdata('errors')):?>
                             <div class="alert alert-danger"><?= session()->getFlashdata('errors') ?></div>
                         <?php endif;?>
-                        <form action="/signup/register" method="post">
+                        <form action="/my_project/signup/register" method="post">
                             <div class="form-group">
-                                <label for="username">아이디:</label>
-                                <input type="text" name="username" id="username" class="form-control" required>
+                                <label for="user_id">아이디:</label>
+                                <input type="text" name="user_id" id="user_id" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">비밀번호:</label>
-                                <input type="password" name="password" id="password" class="form-control" required>
+                                <input type="password" name="password" id="password" class="form-control" >
                             </div>
                             <div class="form-group">
                                 <label for="confirmPassword">비밀번호 확인:</label>
-                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" required>
+                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" >
                             </div>
                             <div class="form-group">
                                 <label for="name">이름:</label>
-                                <input type="text" name="name" id="name" class="form-control" required>
+                                <input type="text" name="name" id="name" class="form-control" >
                             </div>
                             <div class="form-group">
                                 <label for="captcha">자동등록방지 코드:</label>
                                 <img src="<?= esc($captchaImageUrl) ?>" alt="CAPTCHA"> <!-- CAPTCHA 이미지 표시 -->
-                                <input type="text" name="captcha" id="captcha" class="form-control" placeholder="위의 문자를 입력하세요" required>
+                                <input type="text" name="captcha" id="captcha" class="form-control" placeholder="위의 문자를 입력하세요" >
                             </div>
                             <!-- 자동등록방지 코드 입력 필드 및 이미지 추가 예정 -->
                             <div class="text-center mt-4">
@@ -56,3 +56,5 @@
     </div>
 </body>
 </html>
+
+<script src = "/my_project/public/js/signup.js"></script>
