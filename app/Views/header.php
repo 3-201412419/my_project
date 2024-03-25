@@ -24,15 +24,16 @@
         <div class="popup-menu" style="display: none;">
             <div class="popup-content">
                 <button class="close-btn">&times;</button>
-                <?php if ($session->get('logged_in')): ?>
+                <?php if ($isLoggedIn): ?>
                     <img src="https://via.placeholder.com/150" alt="User Photo" class="user-photo">
+                    <p>안녕하세요, <?= esc($userName); ?>님</p>
                     <p><?= esc($session->get('user_name')); ?></p>
                     <p>기타 정보...</p>
-                    <button onclick="location.href='/my_page'">마이페이지</button>
+                    <button onclick="location.href='/my_project/my_page'">마이페이지</button>
                     <button onclick="logout()">로그아웃</button>
                 <?php else: ?>
-                    <button onclick="location.href='/login'">로그인</button>
-                    <button onclick="location.href='/signup'">회원가입</button>
+                    <button onclick="location.href='/my_project/login'">로그인</button>
+                    <button onclick="location.href='/my_project/signup'">회원가입</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -65,6 +66,12 @@ $(document).ready(function () {
         }
     });
 });
+
+function logout() {
+    $.post('/my_project/logout', function() {
+        window.location.href = '/my_project/login'; // 로그아웃 후 리다이렉션할 페이지
+    });
+}
 </script>
 </body>
 </html>

@@ -35,7 +35,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['url', 'form', 'text'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -50,6 +50,11 @@ abstract class BaseController extends Controller
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
+
+        $session = session();
+
+        $this->data['isLoggedIn'] = $session->get('logged_in');
+        $this->data['userName'] = $session->get('user_name');
 
         // Preload any models, libraries, etc, here.
 

@@ -21,8 +21,8 @@
                         <?php endif;?>
                         <form action="/my_project/login/authenticate" method="post">
                             <div class="form-group">
-                                <label for="username">아이디:</label>
-                                <input type="text" name="username" id="username" required class="form-control">
+                                <label for="user_id">아이디:</label>
+                                <input type="text" name="user_id" id="user_id" required class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password">비밀번호:</label>
