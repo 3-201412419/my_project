@@ -1,4 +1,4 @@
-<?php $session = session(); ?>
+<?php $session = session();?>
 <!DOCTYPE html>
 <html>
 <head>

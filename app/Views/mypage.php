@@ -11,8 +11,8 @@
     <div class="container my-5">
         <h2>마이페이지</h2>
         <div class="user-info">
-            <p><strong>이름:</strong> [사용자 이름]</p>
-            <p><strong>이메일:</strong> [사용자 이메일]</p>
+            <p><strong>이름:</strong> <?= esc($userData['name']) ?></p>
+            <p><strong>아이디:</strong> <?= esc($userData['user_id']) ?></p>
             <!-- 기타 사용자 정보 표시 -->
             <a href="/my_project/mypage/edit" class="btn btn-primary">내 정보 상세보기</a>
         </div>
@@ -25,7 +25,5 @@
             </ul>
         </div>
     </div>
-
-
 </body>
 </html>

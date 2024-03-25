@@ -54,7 +54,7 @@ class Login extends BaseController
             // 사용자 세션을 설정합니다.
             $session->set($sessionData);
             // 로그인 성공 시 대시보드로 리다이렉션합니다.
-            return redirect()->to('/dashboard');
+            return redirect()->to('/homepage');
         } else {
             // 비밀번호가 틀렸을 경우
             $session->setFlashdata('msg', '아이디 또는 비밀번호가 잘못되었습니다.');

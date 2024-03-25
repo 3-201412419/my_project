@@ -14,6 +14,7 @@ $routes->get('/login', 'Login::index');
 $routes->post('/login/authenticate', 'Login::authenticate');
 $routes->get('/signup', 'SignUp::index');
 $routes->get('/mypage', 'MyPage::index');
+$routes->get('/mypage/edit', 'MyPage::edit');
 $routes->get('/user', 'UserController::index');
 $routes->get('/postdetail/(:num)', 'PostDetail::index/$1');
 $routes->get('/posts', 'Posts::index');
