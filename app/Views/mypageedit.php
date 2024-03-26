@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <h1>내 정보 </h1>
-    <form action="/mypage/updateMemberInfo" method="post">
+    <form action="/my_project/mypage/updatememberinfo" method="post">
         <div class="form-group">
             <label for="name">이름</label>
             <input type="text" id="name" name="name" class="form-control" value="<?= esc($userData['name'] ?? '') ?>">

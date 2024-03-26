@@ -85,20 +85,44 @@ class MyPage extends Controller
 
 
     // 회원 정보 업데이트 처리
-    public function updateMemberInfo()
-    {
-        $session = session();
+public function updateMemberInfo()
+{
+    $session = session();
 
-        // 로그인 상태 확인
-        if (!$session->get('logged_in')) {
-            return redirect()->to('/login'); // 로그인 페이지로 리다이렉션
-        }
-
-        $userId = $session->get('user_id');
-
-        $data = $this->request->getPost();
-        $this->MemberDetailModel_m->updateMemberInfo($userId, $data);
-
-        return redirect()->to('/mypage');
+    // 로그인 상태 확인
+    if (!$session->get('logged_in')) {
+        return redirect()->to('/login');
     }
+
+    $userId = $session->get('user_id');
+    $data = $this->request->getPost();
+
+    // 유효성 검사 로직 추가
+    $validation = \Config\Services::validation();
+    $validation->setRules([
+        'name' => 'required|min_length[3]|max_length[50]',
+        'email' => 'required|valid_email',
+        'phone' => 'permit_empty|numeric|max_length[15]',
+        'company_name' => 'permit_empty|max_length[100]',
+        'company_address' => 'permit_empty|max_length[255]',
+        'industry' => 'permit_empty|max_length[50]',
+        'company_description' => 'permit_empty|max_length[255]',
+        'personal_memo' => 'permit_empty|max_length[1000]',
+    ]);
+
+    // 유효성 검사 실행
+    if (!$validation->withRequest($this->request)->run()) {
+        // 유효성 검사 실패 시
+        return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+    }
+
+    // 모델을 이용한 데이터 업데이트
+    if ($this->MemberDetailModel_m->updateMemberInfo($userId, $data)) {
+        // 업데이트 성공 시
+        return redirect()->to('/mypage')->with('message', '정보가 성공적으로 업데이트되었습니다.');
+    } else {
+        // 업데이트 실패 시
+        return redirect()->back()->with('error', '정보 업데이트에 실패했습니다.');
+    }
+}
 }
