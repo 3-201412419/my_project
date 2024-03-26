@@ -29,7 +29,7 @@
                     <p>안녕하세요, <?= esc($userName); ?>님</p>
                     <p><?= esc($session->get('user_name')); ?></p>
                     <p>기타 정보...</p>
-                    <button onclick="location.href='/my_project/my_page'">마이페이지</button>
+                    <button onclick="location.href='/my_project/mypage'">마이페이지</button>
                     <button onclick="logout()">로그아웃</button>
                 <?php else: ?>
                     <button onclick="location.href='/my_project/login'">로그인</button>

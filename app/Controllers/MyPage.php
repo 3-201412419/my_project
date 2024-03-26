@@ -26,7 +26,7 @@ class MyPage extends Controller
     
         // 로그인 상태 확인
         if (!$session->get('logged_in')) {
-            return redirect()->to('/login'); // 로그인 페이지로 리다이렉션
+            return redirect()->to('/login');
         }
     
         $userId = $session->get('user_id');
@@ -57,25 +57,30 @@ class MyPage extends Controller
     {
         $session = session();
         if (!$session->get('logged_in')) {
-            return redirect()->to('/login'); // 로그인되지 않았으면 로그인 페이지로
+            return redirect()->to('/login');
         }
-
+    
         $userId = $session->get('user_id');
         if (!$userId) {
-            return redirect()->to('/login'); // 세션에 user_id 없으면 로그인 페이지로
+            // 세션에 user_id가 없으면 로그인 페이지로
+            return redirect()->to('/login');
         }
 
-        // 사용자 정보 조회
-        $userData = $this->MemberDetailModel_m->where('user_id', $userId)->first();
+        $userData = $this->userModel->find($userId);
         if (!$userData) {
-            // 사용자 정보가 없으면 마이페이지로 리다이렉션
-            return redirect()->to('/mypage');
+            $userData = []; // 사용자 정보가 없으면 빈 배열로 처리
         }
 
-        // 뷰에 데이터 전달
-        echo view('header');
-        echo view('mypageedit', ['userData' => $userData]);
-        echo view('footer');
+        $data = [
+            'isLoggedIn' => $session->get('logged_in'),
+            'userName' => $session->get('user_name'),
+            'userData' => $userData,
+        ];
+        
+        // 사용자 정보가 존재하는 경우, 해당 정보를 편집할 수 있는 edit 페이지로 데이터를 전달
+        echo view('header', $data);
+        echo view('mypageedit', ['userData' => $userData]);  // 'userData'를 포함한 $data 배열을 전달
+        echo view('footer', $data);
     }
 
 

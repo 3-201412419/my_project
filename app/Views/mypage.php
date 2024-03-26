@@ -13,7 +13,7 @@
         <div class="user-info">
             <p><strong>이름:</strong> <?= esc($userData['name']) ?></p>
             <p><strong>아이디:</strong> <?= esc($userData['user_id']) ?></p>
-            <!-- 기타 사용자 정보 표시 -->
+            <!-- 추가 정보 표시 예정 -->
             <a href="/my_project/mypage/edit" class="btn btn-primary">내 정보 상세보기</a>
         </div>
         <div class="user-actions">
@@ -25,5 +25,9 @@
             </ul>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // 필요한 JavaScript 코드 추가 예정
+    </script>
 </body>
 </html>
