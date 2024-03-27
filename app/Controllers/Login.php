@@ -49,6 +49,7 @@ class Login extends BaseController
                 'user_id' => $user['id'],
                 'user_name' => $user['name'],
                 'logged_in' => TRUE,
+                'username' => $user['user_id'],
             ];
             
             // 사용자 세션을 설정합니다.

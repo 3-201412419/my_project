@@ -1,9 +1,8 @@
 <?php namespace App\Controllers;
 
-use CodeIgniter\Controller;
 use App\Models\Posts_m;
 
-class PostDetail extends Controller
+class PostDetail extends BaseController // BaseController 상속
 {
     public function index($id = null)
     {
@@ -13,8 +12,12 @@ class PostDetail extends Controller
         // 조회수 증가
         $model->incrementViews($id);
 
-        echo view('header');
-        echo view('postdetail', ['post' => $post]);
-        echo view('footer');
+        // BaseController의 $data 배열에 post 추가
+        $this->data['post'] = $post;
+
+        // 데이터와 함께 뷰 렌더링
+        echo view('header', $this->data);
+        echo view('postdetail', $this->data);
+        echo view('footer', $this->data);
     }
 }

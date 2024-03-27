@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="csrf-token" content="<?= csrf_hash(); ?>">
     <title>My Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/my_project/public/assets/css/style.css">
@@ -68,8 +69,19 @@ $(document).ready(function () {
 });
 
 function logout() {
-    $.post('/my_project/logout', function() {
-        window.location.href = '/my_project/login'; // 로그아웃 후 리다이렉션할 페이지
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    fetch('/my_project/logout', {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': csrfToken
+        },
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = '/my_project/login';
+        }
+    }).catch(error => {
+        console.error('Logout failed', error);
     });
 }
 </script>

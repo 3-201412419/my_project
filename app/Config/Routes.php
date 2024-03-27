@@ -11,6 +11,7 @@ $routes->get('/memberdetail', 'MemberDetail::index');
 $routes->get('/memberdetail/(:segment)', 'MemberDetail::index/$1');
 $routes->get('/home', 'Home::index');
 $routes->get('/login', 'Login::index');
+$routes->post('/logout', 'Logout::index');
 $routes->post('/login/authenticate', 'Login::authenticate');
 $routes->get('/signup', 'SignUp::index');
 $routes->get('/mypage', 'MyPage::index');
