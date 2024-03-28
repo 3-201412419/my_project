@@ -90,11 +90,32 @@
                 }
             });
 
-            var form = document.querySelector('form');
-            form.onsubmit = function() {
-                var content = document.querySelector('input[name=content]');
-                content.value = quill.root.innerHTML;
-            };
+$(document).ready(function() {
+    $('.post-form').submit(function(event) {
+        event.preventDefault(); // 폼 기본 제출 방지
+
+        var formData = {
+            'title': $('#title').val(),
+            'content': quill.root.innerHTML, // Quill 에디터의 내용
+        };
+
+        $.ajax({
+            url: '/my_project/posts/store',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if(response.status === 'success') {
+                    window.location.href = response.redirect; // 성공 시 리다이렉션
+                } else {
+                    alert(response.message); // 오류 메시지 표시
+                }
+            },
+            error: function() {
+                alert('게시글 저장에 실패했습니다.');
+            }
+        });
+    });
+});
         </script>
     </body>
 </html>

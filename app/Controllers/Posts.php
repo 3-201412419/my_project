@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use App\Models\Posts_m;
+use App\Models\Comment_m;
 
 class Posts extends BaseController // BaseController 상속
 {
@@ -35,8 +36,8 @@ class Posts extends BaseController // BaseController 상속
     
         // 로그인 상태 확인
         if (!$session->get('logged_in')) {
-            // 로그인 페이지로 리다이렉션
-            return redirect()->to('/login');
+            // 로그인하지 않은 사용자에 대한 처리
+            return $this->response->setJSON(['status' => 'error', 'message' => '로그인이 필요합니다.']);
         }
     
         $model = new Posts_m();
@@ -50,10 +51,10 @@ class Posts extends BaseController // BaseController 상속
     
         if ($model->save($data)) {
             // 게시글 저장 성공
-            return redirect()->to('/posts'); // 게시글 목록 페이지로 리다이렉션
+            return $this->response->setJSON(['status' => 'success', 'redirect' => '/my_project/posts']);
         } else {
             // 게시글 저장 실패
-            return redirect()->back()->withInput()->with('error', '게시글 저장 실패');
+            return $this->response->setJSON(['status' => 'error', 'message' => '게시글 저장 실패']);
         }
     }
 
@@ -71,4 +72,26 @@ class Posts extends BaseController // BaseController 상속
         }
         return $this->response->setJSON(['success' => false, 'msg' => 'Failed to upload image.']);
     }
+
+    public function comment()
+{
+    $session = session();
+    if (!$session->get('logged_in')) {
+        return $this->response->setJSON(['status' => 'error', 'message' => '로그인이 필요합니다.']);
+    }
+
+    $model = new Comment_m();
+
+    $data = [
+        'post_id' => $this->request->getPost('post_id'),
+        'author' => $session->get('username'),
+        'content' => $this->request->getPost('content'),
+    ];
+
+    if ($model->insert($data)) {
+        return $this->response->setJSON(['status' => 'success']);
+    } else {
+        return $this->response->setJSON(['status' => 'error', 'message' => '댓글 저장 실패']);
+    }
+}
 }
