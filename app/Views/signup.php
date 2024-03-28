@@ -20,10 +20,16 @@
                         <?php if(session()->getFlashdata('errors')):?>
                             <div class="alert alert-danger"><?= session()->getFlashdata('errors') ?></div>
                         <?php endif;?>
-                        <form action="/my_project/signup/register" method="post">
+                        <?php if(session()->getFlashdata('captchaError')): ?>
+                            <div class="alert alert-danger"><?= session()->getFlashdata('captchaError') ?></div>
+                        <?php endif; ?>
+
+                        <!-- 클라이언트 측 오류 메시지 출력을 위한 div -->
+                        <div class="form-errors alert alert-danger" style="display: none;"></div> 
+                        <form  id = "signupForm" action="/my_project/signup/register" method="post">
                             <div class="form-group">
                                 <label for="user_id">아이디:</label>
-                                <input type="text" name="user_id" id="user_id" class="form-control" required>
+                                <input type="text" name="user_id" id="user_id" class="form-control" >
                             </div>
                             <div class="form-group">
                                 <label for="password">비밀번호:</label>

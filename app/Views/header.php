@@ -69,18 +69,31 @@ $(document).ready(function () {
 });
 
 function logout() {
+    // CSRF 토큰 가져오기
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    
     fetch('/my_project/logout', {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-TOKEN': csrfToken
         },
-    }).then(response => {
+    })
+    .then(response => {
         if (response.ok) {
-            window.location.href = '/my_project/login';
+            return response.json(); // JSON 응답을 파싱
         }
-    }).catch(error => {
+        throw new Error('Logout failed');
+    })
+    .then(data => {
+        if(data.success) {
+            window.location.href = '/my_project/login'; // 성공 시 로그인 페이지로 리다이렉션
+        } else {
+            console.error('Logout failed', data.message);
+        }
+    })
+    .catch(error => {
         console.error('Logout failed', error);
     });
 }

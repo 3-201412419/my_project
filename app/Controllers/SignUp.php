@@ -3,23 +3,27 @@
 use CodeIgniter\Controller;
 use App\Models\UserModel;
 
-class Signup extends Controller
+class Signup extends BaseController
 {
     public function index()
     {
         helper(['form', 'url']);
     
+        $session = session();
+        $isLoggedIn = $session->has('logged_in') && $session->get('logged_in');
+        
         // CAPTCHA 이미지 URL 생성
         $captchaImageUrl = $this->createCaptcha();
         
         // 뷰로 전달할 데이터 배열
         $data = [
             'captchaImageUrl' => $captchaImageUrl,
+            'isLoggedIn' => $isLoggedIn, // isLoggedIn 추가
         ];
     
-        echo view('header');
-        echo view('signup', $data); // CAPTCHA 이미지 URL을 포함한 데이터 배열 전달
-        echo view('footer');
+        echo view('header', $data);
+        echo view('signup', $data);
+        echo view('footer', $data);
     }
 
     private function createCaptcha()
@@ -68,52 +72,50 @@ class Signup extends Controller
         session()->set('captcha', $captchaString);
     
         // CAPTCHA 이미지 URL 반환
-        $imageUrl = base_url('img/captcha/' . $fileName);
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST']; // 현재 호스트 이름
+        $dynamicBaseURL = "{$protocol}://{$host}/";
+
+        // CAPTCHA 이미지 URL을 동적 baseURL을 사용하여 생성
+        $imageUrl = "{$dynamicBaseURL}/my_project/img/captcha/{$fileName}";
         return $imageUrl;
     }
 
     public function register()
     {
         helper(['form', 'url']);
-        $validation =  \Config\Services::validation();
+        $validation = \Config\Services::validation();
     
-        // 유효성 검증 규칙 설정
         $validation->setRules([
             'user_id' => 'required|min_length[5]|max_length[12]|is_unique[users.user_id]',
             'password' => 'required|min_length[8]',
             'confirmPassword' => 'matches[password]',
             'name' => 'required',
-            // 자동등록방지 코드 검증 로직은 예제에서 생략
+            'captcha' => 'required'
         ]);
     
-        // 사용자가 입력한 CAPTCHA 값을 가져옵니다.
+        if (!$validation->withRequest($this->request)->run()) {
+            return $this->response->setStatusCode(400)->setJSON(['errors' => $validation->getErrors()]);
+        }
+    
         $userInputCaptcha = $this->request->getPost('captcha');
-        // 세션에 저장된 CAPTCHA 값을 가져옵니다.
         $storedCaptcha = session()->get('captcha');
     
-        // 입력한 CAPTCHA 값과 세션에 저장된 값이 다를 경우
         if ($userInputCaptcha !== $storedCaptcha) {
-            // 사용자에게 CAPTCHA 불일치 메시지를 반환하고 이전 페이지로 리다이렉션합니다.
-            return redirect()->back()->withInput()->with('captchaError', 'CAPTCHA가 일치하지 않습니다.');
+            return $this->response->setStatusCode(400)->setJSON(['errors' => ['captcha' => '자동방지코드가 일치하지 않습니다.']]);
         }
     
-        // 유효성 검증 실패 시, 에러 메시지와 함께 이전 페이지로 리다이렉션합니다.
-        if(!$validation->withRequest($this->request)->run()) {
-            // 유효성 검증 실패 시 에러 메시지를 담아 리다이렉션
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
-    
-        // UserModel을 사용하여 사용자 데이터를 데이터베이스에 저장합니다.
         $userModel = new UserModel();
         $data = [
             'user_id' => $this->request->getPost('user_id'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT), // 비밀번호 암호화
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'name' => $this->request->getPost('name'),
-            // 필요한 추가 데이터 필드...
         ];
-        $userModel->save($data);
     
-        // 사용자 등록 후 로그인 페이지로 리다이렉션합니다.
-        return redirect()->to('/login');
+        if ($userModel->save($data)) {
+            return $this->response->setStatusCode(200)->setJSON(['message' => '회원가입에 성공했습니다.']);
+        } else {
+            return $this->response->setStatusCode(400)->setJSON(['errors' => ['general' => '회원가입에 실패했습니다.']]);
+        }
     }
 }
