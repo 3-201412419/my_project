@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <h1>내 정보 </h1>
-    <form action="/my_project/mypage/updatememberinfo" method="post">
+    <form id="myForm" action="/my_project/mypage/updatememberinfo" method="post">
         <div class="form-group">
             <label for="name">이름</label>
             <input type="text" id="name" name="name" class="form-control" value="<?= esc($userData['name'] ?? '') ?>">
@@ -48,3 +48,5 @@
 </div>
 </body>
 </html>
+
+<script src="/my_project/public/js/myedit.js"></script>
