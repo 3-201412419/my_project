@@ -3,6 +3,8 @@
 use CodeIgniter\Controller;
 use App\Models\UserModel;
 use App\Models\MemberDetailModel_m;
+use App\Models\PostsModel_m;
+use App\Models\Comment_m;
 
 class MyPage extends Controller
 {
@@ -82,6 +84,62 @@ class MyPage extends Controller
         echo view('mypageedit', ['userData' => $userData]);  // 'userData'를 포함한 $data 배열을 전달
         echo view('footer', $data);
     }
+
+    public function myposts()
+{
+    $session = session();
+    
+    // 사용자 로그인 상태 확인
+    $isLoggedIn = $session->get('logged_in');
+    $userName = $session->get('username'); // 세션에서 username 가져오기
+    // PostsModel_m을 사용하여 현재 로그인한 사용자의 게시글 목록 가져오기
+    $model = new PostsModel_m();
+    $userId = $session->get('user_id');
+    
+    $posts = $model->where('author', $userName)->findAll(); // author를 username으로 비교
+
+    // 데이터와 함께 뷰 렌더링
+    $data = [
+        'isLoggedIn' => $isLoggedIn,
+        'userName' => $userName, // 누락된 변수 추가
+        'posts' => $posts,
+        // 다른 필요한 데이터를 여기에 추가
+    ];
+
+    echo view('header', $data);
+    echo view('myposts', $data);
+    echo view('footer', $data);
+}
+
+
+public function mycomments()
+{
+    $session = session();
+
+    // 로그인 확인
+    if (!$session->get('logged_in')) {
+        // 로그인하지 않은 경우 로그인 페이지로 리다이렉션
+        return redirect()->to('/my_project/login');
+    }
+
+    // Comment_m 모델 인스턴스 생성
+    $commentModel = new Comment_m();
+    $username = $session->get('username'); // 세션에서 username 가져오기
+
+    // 사용자의 댓글 목록 조회 (여기서는 'author'가 'username'과 일치하는 것으로 가정)
+    $comments = $commentModel->where('author', $username)->findAll();
+
+    $data = [
+        'isLoggedIn' => $session->get('logged_in'),
+        'userName' => $username,
+        'comments' => $comments
+    ];
+
+    // 뷰 렌더링
+    echo view('header', $data);
+    echo view('mycomments', $data); // 실제 뷰 파일 경로에 맞게 수정하세요.
+    echo view('footer');
+}
 
 
     // 회원 정보 업데이트 처리

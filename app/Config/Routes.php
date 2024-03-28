@@ -17,6 +17,8 @@ $routes->get('/signup', 'SignUp::index');
 $routes->get('/mypage', 'MyPage::index');
 $routes->get('/mypage/edit', 'MyPage::edit');
 $routes->post('/mypage/updatememberinfo', 'MyPage::updateMemberInfo');
+$routes->get('/mypage/myposts', 'MyPage::myposts');
+$routes->get('/mypage/mycomments', 'MyPage::mycomments');
 $routes->get('/user', 'UserController::index');
 $routes->get('/postdetail/(:num)', 'PostDetail::index/$1');
 $routes->get('/posts', 'Posts::index');

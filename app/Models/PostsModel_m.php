@@ -8,4 +8,9 @@ class PostsModel_m extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = ['title', 'content', 'author', 'views', 'created_at'];
     protected $returnType = 'array';
+
+    public function getPostsByUserId($userId)
+    {
+        return $this->where('author', $userId)->findAll();
+    }
 }
