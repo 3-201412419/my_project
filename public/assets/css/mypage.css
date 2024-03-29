@@ -6,6 +6,7 @@ body {
 .container {
     background-color: #ffffff;
     padding: 20px;
+    display: block;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -47,4 +48,62 @@ body {
     color: #fff;
     background-color: #0056b3;
     border-color: #0056b3;
+}
+
+
+@media (max-width: 800px) {
+    .user-info, .user-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-info p, .user-actions h3 {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .user-actions ul {
+        width: 100%;
+    }
+
+    .user-actions ul li {
+        width: 100%;
+    }
+
+    .user-actions ul li a,
+    .btn-primary {
+        display: block; /* 버튼과 링크를 블록 요소로 만들어서 너비를 전체 차지하게 함 */
+        width: 100%; /* 부모의 너비를 전체 차지하도록 설정 */
+        margin-bottom: 10px; /* 아래쪽 여백 설정 */
+    }
+
+    .btn-primary {
+        margin-top: 10px; /* 버튼 위쪽 여백 설정 */
+    }
+}
+
+@media (max-width: 300px) {
+    .container {
+        padding: 10px;
+        display: none;
+    }
+
+    .user-info h3, .user-actions h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .user-info p, .user-actions ul li {
+        font-size: 14px;
+    }
+
+    .user-actions ul li a {
+        padding: 8px 0;
+    }
+
+    .btn-primary {
+        padding: 10px;
+        font-size: 14px;
+    }
 }

@@ -13,6 +13,10 @@ class AllMember_m extends Model {
     public function getAllMembers() {
         return $this->findAll();
     }
+
+    public function searchMembers($searchTerm) {
+        return $this->like('name', $searchTerm)->findAll(); // 'name' 필드를 기준으로 검색
+    }
 }
 
 ?>

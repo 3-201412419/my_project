@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/my_project/public/assets/css/custom.css"> <!-- 추가된 CSS 파일 -->
+    <link rel="stylesheet" href="/my_project/public/assets/css/allmember.css"> <!-- 추가된 CSS 파일 -->
     <title>전체 회원 목록</title>
 </head>
 <body>
+<div class="search-container my-4">
+    <form action="/my_project/allmember" method="get"> <!-- 경로 변경 -->
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="회원 이름 검색" name="search" required>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">검색</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 <div class="container mt-5">
   
