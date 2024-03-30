@@ -1,72 +1,285 @@
-.member-card {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+/* 기본 카드 스타일 */
+.card.member-card {
+    display: block; /* 기본 블록 요소로 설정 */
+    overflow: hidden; /* 내용이 넘치면 숨김 처리 */
+    margin-bottom: 20px; /* 카드 간의 간격 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: inherit; /* 상속받은 색상 사용 */
+    height: 150px; /* 카드 높이 조정 */
 }
 
-.member-photo img {
-    width: 100%;
+/* 카드 수평 배치를 위한 컨테이너 */
+.card-horizontal {
+    display: flex; /* Flexbox 레이아웃 적용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    height: 100%; /* 부모 요소의 높이에 맞춤 */
+}
+
+/* 카드 이미지 */
+.card-img-left {
+    flex-shrink: 0; /* 이미지 크기가 줄지 않도록 설정 */
+    width: 100px; /* 이미지 너비 조정 */
+    height: 100px; /* 이미지 높이 조정 */
+    object-fit: cover; /* 비율 유지하며 채움 */
+    margin-right: 15px; /* 이미지와 텍스트 사이의 간격 조정 */
+    margin-left: 10px;
+}
+
+/* 카드 본문 */
+.card-body.member-info {
+    flex: 1; /* 남은 공간을 모두 차지하도록 설정 */
+    padding: 15px; /* 내부 여백 조정 */
+    overflow: hidden; /* 내용이 넘치면 숨김 처리 */
+    max-height: 100%; /* 최대 높이를 부모 요소의 높이로 제한 */
+}
+
+/* 카드 텍스트 */
+.card-text {
+    margin: 0; /* 기본 마진 제거 */
+    display: -webkit-box; /* 구형 브라우저 지원 */
+    -webkit-box-orient: vertical; /* 구형 브라우저 지원 */
+    -webkit-line-clamp: 2; /* 표시할 줄 수 조정 */
+    overflow: hidden; /* 내용이 넘치면 숨김 처리 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 말줄임표(...) 표시 */
+    word-wrap: break-word; /* 긴 단어 줄바꿈 */
+}
+
+/* <a> 태그 hover 시 밑줄 제거 */
+a:hover {
+    text-decoration: none;
+}
+
+/* 광고 배너 스타일 */
+.ad-banner {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ad-banner img {
+    max-width: 100%;
     height: auto;
-    display: block;
 }
 
-.member-info {
-    padding: 15px;
-    text-align: left;
-}
-
-.member-info h5 {
-    margin-top: 0;
-}
-
-/* 갤럭시 폴드 및 태블릿 화면 스타일 */
-@media (min-width: 768px) {
-    .member-card {
-        /* 카드의 크기를 큼직하게 조정 */
-        width: 100%;
-    }
-
-    .member-info h5 {
-        font-size: 1.5rem; /* 제목의 글자 크기를 키움 */
-    }
-
-    .card-text {
-        font-size: 1.2rem; /* 내용의 글자 크기를 조정 */
-    }
-
-    .btn {
-        padding: 0.75rem 1.25rem; /* 버튼의 크기를 조정 */
-        font-size: 1.2rem; /* 버튼의 글자 크기를 키움 */
-    }
-}
-
-/* 모바일 화면 (특히 접혔을 때) 스타일 */
+/* 모바일 화면에서의 스타일 조정 */
 @media (max-width: 767px) {
-    .member-card {
-        /* 카드가 너무 크지 않도록 조정 */
-        margin-bottom: 1rem;
+    .card.member-card {
+        height: auto; /* 모바일에서는 높이 자동 조정 */
     }
 
-    .member-info h5 {
-        font-size: 1.25rem; /* 모바일 화면에 맞춰 제목 글자 크기 조정 */
+    .card-horizontal {
+        flex-direction: row; /* 가로 방향으로 배열 */
+        align-items: stretch; /* 세로 방향으로 꽉 채우기 */
+        height: auto; /* 모바일에서는 높이 자동 조정 */
+    }
+
+    .card-img-left {
+        width: 80px; /* 이미지 너비 조정 */
+        height: auto; /* 이미지 높이 자동 조정 */
+        object-fit: cover; /* 비율 유지하며 영역 꽉 채우기 */
+        margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+        margin-left: 10px; /* 이미지 왼쪽 마진 조정 */
+    }
+
+    .card-body.member-info {
+        padding: 10px; /* 카드 본문 패딩 조정 */
+        max-height: none; /* 모바일에서는 최대 높이 제한 해제 */
+    }
+
+    .card-title {
+        font-size: 16px; /* 제목 폰트 크기 조정 */
+        margin-bottom: 5px; /* 제목 아래 마진 조정 */
     }
 
     .card-text {
-        font-size: 1rem; /* 내용 글자 크기를 작게 조정 */
+        margin-bottom: 0; /* 텍스트 간의 마진 제거 */
+        -webkit-line-clamp: 3; /* 모바일에서는 줄 수 조정 */
     }
 
-    .btn {
-        padding: 0.5rem 1rem; /* 버튼의 크기를 모바일에 맞추어 조정 */
-        font-size: 1rem; /* 버튼의 글자 크기를 줄임 */
+    /* 모바일에서의 광고 배너 스타일 조정 */
+    .ad-banner {
+        margin-bottom: 10px; /* 배너 하단 마진 조정 */
+    }
+
+    .ad-banner img {
+        max-width: 100%; /* 이미지 최대 너비 조정 */
+        height: auto; /* 이미지 높이 자동 조정 */
     }
     
-    .navbar-brand {
-        font-size: 1.25rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 70%;
-        display: block;
+    /* 모바일에서 2줄 방식으로 표시 */
+    .row {
+        display: flex; /* Flexbox 레이아웃 적용 */
+        flex-wrap: wrap; /* 여러 줄로 배치 */
+    }
+
+    .col-md-6 {
+        flex-basis: 50%; /* 너비를 50%로 설정 */
+        max-width: 50%; /* 최대 너비를 50%로 제한 */
+    }
+
+    .search-form {
+        flex-wrap: nowrap; /* Flexbox 아이템 한 줄로 유지 */
+    }
+
+    .search-form .form-control {
+        margin-right: 5px; /* 입력 필드와 버튼 사이 간격 조정 */
+        max-width: none; /* 최대 너비 제한 해제 */
+    }
+
+    .search-form .btn-outline-secondary {
+        flex-shrink: 0; /* 버튼 크기 고정 */
+        padding: 0.375rem 0.75rem; /* 버튼 안쪽 여백 조정 */
+    }
+}
+
+/* 검색 컨테이너 스타일 */
+.search-container {
+    max-width: 100%; /* 화면 width에 맞게 조절 */
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* 검색 폼 스타일 */
+.search-form {
+    display: flex; /* Flexbox 레이아웃 적용 */
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+}
+
+/* 검색 입력 필드 스타일 */
+.search-form .form-control {
+    border-radius: 0.375rem; /* 입력 필드 라운드 처리 */
+    border: 1px solid #ced4da; /* 기본 부트스트랩 테두리 색상 */
+    flex: 1; /* 입력 필드가 나머지 공간을 차지하도록 설정 */
+    margin-right: 10px; /* 입력 필드와 버튼 사이 간격 */
+    max-width: 400px; /* 입력 필드 최대 너비 설정 */
+}
+
+/* 검색 버튼 스타일 */
+.search-form .btn-outline-secondary {
+    border: 1px solid #007bff; /* 버튼 테두리 색상 변경 */
+    background-color: #007bff; /* 버튼 배경색 */
+    color: #ffffff; /* 버튼 글자색 */
+    
+}
+
+.search-form .btn-outline-secondary:hover {
+    background-color: #0056b3; /* 호버 시 버튼 배경색 변경 */
+    border-color: #0056b3; /* 호버 시 버튼 테두리 색상 변경 */
+}
+
+/* 모바일 사이즈 최적화를 위한 추가적인 스타일 */
+@media (max-width: 576px) {
+    /* 검색 컨테이너 모바일 최적화 */
+    .search-container {
+        margin: 10px auto;
+        padding: 5px;
+    }
+
+    /* 검색 입력 필드 및 버튼 모바일 최적화 */
+    .search-container .form-control,
+    .search-container .btn-outline-secondary {
+        height: 38px; /* 높이 조정 */
+    }
+
+    .search-container .form-control {
+        margin-bottom: 10px; /* 입력 필드 아래 마진 추가 */
+    }
+
+
+
+    /* 카드 레이아웃 모바일 최적화 */
+    .card.member-card {
+        margin-bottom: 15px; /* 카드 간의 간격 조정 */
+        height: auto; /* 모바일에서는 높이 자동 조정 */
+    }
+
+    .card-img-left {
+        width: 80px; /* 이미지 너비 조정 */
+        height: auto; /* 이미지 높이 자동 조정 */
+        object-fit: cover; /* 비율 유지하며 영역 꽉 채우기 */
+        margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+        margin-left: 10px; /* 이미지 왼쪽 마진 조정 */
+    }
+
+    .card-body.member-info {
+        padding: 10px; /* 카드 본문 패딩 조정 */
+        max-height: none; /* 모바일에서는 최대 높이 제한 해제 */
+    }
+
+    .card-title {
+        font-size: 16px; /* 제목 폰트 크기 조정 */
+        margin-bottom: 5px; /* 제목 아래 마진 조정 */
+    }
+
+    .card-text {
+        margin-bottom: 0; /* 텍스트 간의 마진 제거 */
+        -webkit-line-clamp: 3; /* 모바일에서는 줄 수 조정 */
+    }
+
+    .btn {
+        font-size: 14px; /* 버튼 폰트 사이즈 조정 */
+        padding: 0.375rem 0.75rem; /* 버튼 패딩 조정 */
+    }
+}
+
+/* 갤럭시 폴드 등 작은 화면 사이즈 최적화 */
+@media (max-width: 280px) {
+    /* 검색 컨테이너 작은 화면 최적화 */
+    .search-container {
+        margin: 5px auto;
+        padding: 5px;
+    }
+
+    /* 검색 입력 필드 및 버튼 작은 화면 최적화 */
+    .search-form {
+        flex-direction: column; /* 세로 방향으로 배치 */
+        align-items: stretch; /* 너비를 꽉 채우도록 설정 */
+    }
+
+    .search-form .form-control {
+        margin-right: 0; /* 입력 필드와 버튼 사이 간격 제거 */
+        margin-bottom: 5px; /* 입력 필드 아래 여백 추가 */
+        height: 32px; /* 높이 조정 */
+        font-size: 12px; /* 폰트 크기 조정 */
+    }
+
+    .search-form .btn-outline-secondary {
+        height: 32px; /* 높이 조정 */
+        font-size: 12px; /* 폰트 크기 조정 */
+    }
+
+    /* 카드 레이아웃 작은 화면 최적화 */
+    .card.member-card {
+        margin-bottom: 10px; /* 카드 간의 간격 조정 */
+        height: auto; /* 작은 화면에서는 높이 자동 조정 */
+    }
+
+    .card-img-left {
+        width: 60px; /* 이미지 너비 조정 */
+        height: auto; /* 이미지 높이 자동 조정 */
+        object-fit: cover; /* 비율 유지하며 영역 꽉 채우기 */
+        margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+        margin-left: 10px; /* 이미지 왼쪽 마진 조정 */
+    }
+
+    .card-body.member-info {
+        padding: 5px; /* 카드 본문 패딩 조정 */
+        max-height: none; /* 작은 화면에서는 최대 높이 제한 해제 */
+    }
+
+    .card-title {
+        font-size: 14px; /* 제목 폰트 크기 조정 */
+        margin-bottom: 3px; /* 제목 아래 마진 조정 */
+    }
+
+    .card-text {
+        margin-bottom: 0; /* 텍스트 간의 마진 제거 */
+        font-size: 12px; /* 텍스트 폰트 크기 조정 */
+        -webkit-line-clamp: 2; /* 작은 화면에서는 줄 수 조정 */
+    }
+
+    .btn {
+        font-size: 12px; /* 버튼 폰트 사이즈 조정 */
+        padding: 0.25rem 0.5rem; /* 버튼 패딩 조정 */
     }
 }
